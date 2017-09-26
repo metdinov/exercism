@@ -1,3 +1,3 @@
 # Exercism Solutions
 
-My solutions for exercism.io problems in Elixir.
+My solutions for [exercism.io](http://exercism.io) problems in Elixir.
