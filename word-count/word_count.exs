@@ -8,7 +8,7 @@ defmodule Words do
   def count(sentence) do
     sentence
     |> String.downcase
-    |> (&Regex.scan(~r/[-0-9\p{L}]+/ui, &1)).() # \p{L} matches unicode letters
-    |> Enum.reduce(%{}, fn([word], dict) -> Map.update(dict, word, 1, &(&1 + 1)) end)
+    |> String.split(~r/[^-0-9\p{L}]+/ui, trim: true) # \p{L} matches unicode letters
+    |> Enum.reduce(%{}, fn(word, dict) -> Map.update(dict, word, 1, &(&1 + 1)) end)
   end
 end
