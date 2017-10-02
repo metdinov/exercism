@@ -6,24 +6,28 @@ defmodule Sublist do
   and if not whether it is equal or unequal to the second list.
   """
   @spec compare(list, list) :: partial_order
-  def compare(a, b) do
-    cond do
-      length(a) < length(b) -> contains?(a, b, :sublist)
-      length(a) > length(b) -> contains?(b, a, :superlist)
-      a === b -> :equal
-      true -> :unequal
-    end 
-  end
+  def compare(a, a),
+    do: :equal
+  def compare(a, b) when length(a) == length(b),
+    do: :unequal
+  def compare(a, b) when length(a) < length(b),
+    do: if contains?(a, b), do: :sublist, else: :unequal
+  def compare(a, b),
+    do: if contains?(b, a), do: :superlist, else: :unequal
+  
 
   @doc """
-  Helper function that returns `order` if list `b` contains list `a`
+  Helper function that returns :true if list `b` contains list `a`
   """
-  @spec contains?(list, list, partial_order, pos_integer) :: partial_order
-  defp contains?(a, b, order, index \\ 0) do
-    cond do
-      length(b) - index < length(a) -> :unequal
-      Enum.slice(b, index, length(a)) === a -> order
-      true -> contains?(a, b, order, index + 1)
+  @spec contains?(list, list) :: boolean
+  defp contains?(a, b) when length(b) >= length(a) do
+    if Enum.take(b, length(a)) === a do
+      true
+    else
+      contains?(a, tl(b))
     end
+  end
+  defp contains?(_, _) do
+    false
   end
 end
