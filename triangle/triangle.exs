@@ -9,13 +9,10 @@ defmodule Triangle do
     do: {:error, "all side lengths must be positive"}
   def kind(a, b, c) when a + b <= c or a + c <= b or b + c <= a, 
     do: {:error, "side lengths violate triangle inequality"}
-  # def kind(a, b, c) when a + c <= b, do: {:error, "side lengths violate triangle inequality"}
-  # def kind(a, b, c) when b + c <= a, do: {:error, "side lengths violate triangle inequality"}
   def kind(a, b, c) when a == b and b == c, 
     do: {:ok, :equilateral}
   def kind(a, b, c) when a == b or b == c or a == c, 
     do: {:ok, :isosceles}
-  # def kind(_, b, c) when b == c, do: {:ok, :isosceles}
-  # def kind(a, _, c) when a == c, do: {:ok, :isosceles}
-  def kind(_, _, _), do: {:ok, :scalene}
+  def kind(_, _, _),
+    do: {:ok, :scalene}
 end
