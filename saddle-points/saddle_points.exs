@@ -52,6 +52,7 @@ defmodule SaddlePoints do
     value = func.(int_list)
     int_list
     |> Enum.with_index
-    |> Enum.filter_map(fn {x, _} -> x == value end, fn {_, i} -> i end)
+    |> Enum.filter(fn {x, _} -> x == value end)
+    |> Enum.map(fn {_, i} -> i end)
   end
 end
