@@ -22,7 +22,7 @@ defmodule Change do
   end
   def generate(coins, target) do
     coins
-    |> Enum.sort(fn(x, y) -> x >= y end)
+    |> Enum.sort(&>/2)
     |> find_change(target)
   end
 
