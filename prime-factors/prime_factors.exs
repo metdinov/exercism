@@ -19,4 +19,20 @@ defmodule PrimeFactors do
     do: [factor | factorize(div(number, factor), factor)]
   defp factorize(number, factor),
     do: factorize(number, factor + 2)
+
+  # Maybe try Stream implementation?
+  
+  # prime_generator = 
+  #   Stream.unfold([], 
+  #     fn primes -> {prime = &next_prime(hd(primes) + 2), [prime | primes]})
+
+  # defp next_prime([], _guess), do: 2
+  # defp next_prime([2], _guess), do: 3
+  # defp next_prime(primes, guess) do
+  #   if Enun.any?(primes, &(rem(guess, &1) == 0) do
+  #     next_prime(primes, guess + 2)
+  #   else
+  #     guess
+  #   end
+  # end
 end
