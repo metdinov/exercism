@@ -78,7 +78,7 @@ defmodule WordyTest do
   end
 
   test "exponetials" do
-    assert Wordy.answer("What is 2 raised to the 5th power?") == 32
+    assert Wordy.answer(  ) == 32
   end
 
   @tag :pending
