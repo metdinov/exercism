@@ -29,7 +29,7 @@ defmodule Atbash do
   end
 
   defp encode_char(char) when char in ?a..?z,
-    do: ?a + rem((char - ?a) * (?z - ?a) + ?z - ?a, ?z - ?a + 1)
+    do: ?z + ?a - char
   defp encode_char(char),
     do: char
   
@@ -42,15 +42,6 @@ defmodule Atbash do
   end
 
   defp decoder(ciphertext) do
-    for <<char::utf8 <- ciphertext>>, into: "", do: <<decode_char(char)>>
+    for <<char::utf8 <- ciphertext>>, into: "", do: <<encode_char(char)>>
   end
-
-  defp decode_char(char) when char in ?a..?z,
-    do: ?a + mod((char - ?z) * (?z - ?a), ?z - ?a + 1)
-  defp decode_char(char),
-    do: char
-
-  # Simple positive modulo
-  defp mod(a, b) when a < b, do: mod(a + b, b)
-  defp mod(a, b), do: rem(a, b)
 end
