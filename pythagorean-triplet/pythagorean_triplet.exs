@@ -5,7 +5,7 @@ defmodule Triplet do
   """
   @spec sum([non_neg_integer]) :: non_neg_integer
   def sum(triplet) do
-    Enum.reduce(triplet, &+/2)
+    Enum.reduce(triplet, &+/2) # Use Enum.sum next time
   end
 
   @doc """
