@@ -24,10 +24,9 @@ defmodule CryptoSquare do
     Enum.join(codewords, " ")
   end
 
-  def take_every_nth_char(str, n, acc \\ "")
-  def take_every_nth_char("", _n, acc),
-    do: acc
-  def take_every_nth_char(str, n, acc),
-    do: take_every_nth_char(String.slice(str, n..-1), n, acc <> String.at(str, 0))
-
+  defp take_every_nth_char(str, n, acc \\ [])
+  defp take_every_nth_char("", _n, acc),
+    do: acc |> Enum.reverse |> Enum.join
+  defp take_every_nth_char(str, n, acc),
+    do: take_every_nth_char(String.slice(str, n..-1), n, [String.at(str, 0) | acc])
 end
