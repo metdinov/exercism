@@ -12,18 +12,11 @@ defmodule RailFenceCipher do
       |> Stream.cycle
       |> Enum.take(String.length(str))
 
-    str
-    |> build_rails(fence)
-    |> Enum.join   
+    for rail <- 1..rails,
+        indeces = Enum.filter(Enum.with_index(fence), fn {i, _} -> i == rail end),
+        into: "",
+        do: for {_rail, ind} <- indeces, into: "", do: String.at(str, ind)
   end
-
-  def build_rails(str, fence, acc \\ [])
-  def build_rails("", _fence, acc),
-    do: acc |> Enum.map(&Enum.reverse/1) |> Enum.map(&Enum.join/1)
-  def build_rails(<<char::utf8, rest::binary>>, [rail | fence], acc) when length(acc) >= rail,
-    do: build_rails(rest, fence, List.update_at(acc, rail - 1, fn chars -> [<<char>> | chars] end))
-  def build_rails(<<char::utf8, rest::binary>>, [_rail | fence], acc),
-    do: build_rails(rest, fence, acc ++ [[<<char>>]])
 
   @doc """
   Decode a given rail fence ciphertext to the corresponding plaintext
