@@ -1,5 +1,6 @@
 defmodule CollatzConjecture do
   defguardp is_even(value) when rem(value, 2) == 0
+  defguardp is_pos_integer(value) when is_integer(value) and value > 0
 
   @doc """
   calc/1 takes an integer and returns the number of steps required to get the
@@ -8,7 +9,7 @@ defmodule CollatzConjecture do
     - if number is even, divide by 2
   """
   @spec calc(number :: pos_integer) :: pos_integer
-  def calc(input) when is_integer(input) and input > 0, do: loop(input)
+  def calc(input) when is_pos_integer(input), do: loop(input)
 
   defp loop(input, steps \\ 0)
   defp loop(1, steps), do: steps
